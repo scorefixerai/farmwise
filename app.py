@@ -138,7 +138,6 @@ def webhook():
             if not has_access:
                 send(sender, block_msg)
             else:
-                sub_mgr.increment_message(sender)
                 if block_msg:  # trial warning
                     send(sender, block_msg)
                 _route(sender, user_text, text_lower, session, ts)
@@ -158,11 +157,10 @@ def webhook():
 def payment_webhook():
     try:
         data = request.get_json()
-        if data.get("event") == "charge.success":
-            ref = data.get("data", {}).get("reference", "")
-            result = sub_mgr.verify_paystack_webhook(ref)
-            if result and result["success"]:
-                send(result["phone"], sub_mgr.activate_subscription(result["phone"]))
+        if sub_mgr.handle_webhook(data):
+            phone = data.get("data", {}).get("metadata", {}).get("phone", "")
+            if phone:
+                send(phone, sub_mgr.get_status(phone))
     except Exception as e:
         logger.error(f"Payment webhook error: {e}")
     return jsonify({"status": "ok"}), 200
