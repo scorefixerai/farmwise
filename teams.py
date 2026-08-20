@@ -216,10 +216,10 @@ class TeamManager:
     def parse_add_member(self, text):
         """
         Parse: 'add worker Kwame 0241234567'
-        or: 'add manager Ama 0551234567'
+        or: 'add manager Ama Mensah 0551234567'
         """
         match = re.match(
-            r'add\s+(worker|manager)\s+(\w+)\s+([\d\s+\-]+)',
+            r'add\s+(worker|manager)\s+(.+?)\s+([\d\s+\-]{9,})',
             text, re.IGNORECASE
         )
         if match:

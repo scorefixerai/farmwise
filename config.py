@@ -8,7 +8,7 @@ import os
 # ── AI Models (change via env var to swap instantly) ──
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-CHAT_MODEL = os.getenv("CHAT_MODEL", "openai/gpt-oss-20b")
+CHAT_MODEL = os.getenv("CHAT_MODEL", "qwen/qwen3.6-27b")
 VISION_MODEL = os.getenv("VISION_MODEL", "qwen/qwen3.6-27b")
 WHISPER_MODEL = os.getenv("WHISPER_MODEL", "whisper-large-v3-turbo")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
